@@ -21,7 +21,7 @@ for (let i = 0; i < inputs.length; i++) {
         // console.log(target.dataset)
         const data = target.dataset
         // console.log(data.id)
-        const content = q('.content')
+        const content = q((`.content-${data.id}`))
         console.log(content)
         console.log('checked',checked)
         content.style.textDecoration = 'line-through'
