@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo App</title>
     <link rel="stylesheet" href="./style.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
@@ -12,31 +12,18 @@
 <body>
     <div class="warpper">
         <header class="header">Todo List</header>
-        <div class="inputfield">
+        <div class="input__field">
             <input type="text" placeholder="add todo">
-            <button><i class='bx bx-plus'></i></button>
+            <button id="push"><i class='bx bx-plus'></i></button>
         </div>
-        <div class="todo-list">
-        <ul>
-            <li class="content content-1">hello<span><input data-id ="1" class="input-checkbox" type="checkbox"></span></li>
-            <li class="content content-2">hello<span><input data-id ="2" class="input-checkbox" type="checkbox"></span></li>
-            <li class="content content-3">hello<span><input data-id ="3" class="input-checkbox" type="checkbox"></span></li>
-            <li class="content content-4">hello<span><input data-id ="4" class="input-checkbox" type="checkbox"></span></li>
-            
-            
+        <ul class="todo__list">
             
         </ul>
-        </div>
         <div class="footer">
             <span>You have 3 pending task</span>
             <button><span>clear all</span></button>
         </div>
     </div>
-
-
-
-
-
     <script src="./main.js"></script>
 </body>
 </html>
