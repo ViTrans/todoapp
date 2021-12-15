@@ -8,19 +8,20 @@ const qall = (str) => {
 const q = (str) => {
     return document.querySelector(str)
 }
-document.querySelector('#push').onclick = function(){
-    if(document.querySelector('.input__field input').value.length ==0){
-        alert("xin hãy nhập vào")
-    }
-    else{
-        document.querySelector('.todo__list').innerHTML
-        += `
-        <li class="content content-1">${document.querySelector('.input__field input').value}
-                <input data-id ="1" class="input-checkbox" type="checkbox">
-            </li>
-            `;
-    }
+const push = document.querySelector('#push')
+const inputField = document.querySelector('.input__field input')
+let index = 1;
+
+function createElement (tag){
+    return document.createElement(tag)
 }
+push.addEventListener('click',function(){
+    const ul = createElement('ul');
+    ul.classList.add('todo__list')
+    ul.innerHTML = 
+    console.log(ul)
+    inputField.appendChild(ul)
+})
 
 const inputs = qall('.input-checkbox')
 console.log(inputs)
