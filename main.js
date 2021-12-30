@@ -3,6 +3,7 @@ const inputElem = document.querySelector('.input__field input')
 const push = document.querySelector('.push')
 const todoList = document.querySelector('.todo__list')
 const clearAll = document.querySelector('.clear-all')
+const counterElem = document.querySelector('.pendingTasksNumb')
 
 // rang buoc su kien cho button push
 push.addEventListener('click',function(){
@@ -16,7 +17,17 @@ push.addEventListener('click',function(){
     }
     // tao moi cac the html
     createTodo(value)
+    countTodo()
+    clearInputValue()
 })
+function clearInputValue(){
+    inputElem.value = ''
+}
+function countTodo(){
+    const allItemts = document.querySelectorAll('.content')
+    const counter = allItemts.length
+    counterElem.textContent = counter;
+}
 // khi người dùng nhập dữ liệu ấn Enter thì dữ liệu sẽ được hiển thị
 inputElem.addEventListener('keyup',function(event){ 
     if(event.keyCode ===13){
@@ -48,6 +59,7 @@ function changeStastus(input,p){
 function deleteTodoAll(li){
     clearAll.addEventListener('click',function(){
         li.remove()
+        countTodo()
     })
 
 }
@@ -56,16 +68,21 @@ function deleteTodoItem(i){
     i.addEventListener('click',function(){
         const itemt = i.parentElement
         itemt.remove()
+        countTodo()
     })
 }
 // hàm thay đổi trạng thái khi click vào text
-function changeText(p,i){
-    p.addEventListener('click',function(){
-        p.style.textDecoration = 'line-through'
-    })
-    p.addEventListener('dblclick',function(){
-        const itemt = i.parentElement
-        itemt.remove();
+function changeText(li,input,p){
+    li.addEventListener('click',function(event){
+        if(!event.ctrlKey) return;
+        if(input.checked == false){
+            input.checked = true
+            p.style.textDecoration = 'line-through'
+        }
+        else{
+            input.checked =false
+            p.style.textDecoration = ''
+        }
     })
 }
 function createTodo(value){
@@ -79,7 +96,7 @@ function createTodo(value){
     input.className = 'input-checkbox'
     i.className = 'bx bx-trash trash'
     p.innerHTML = value;
-    changeText(p,i)
+    changeText(li,input,p)
     changeStastus(input,p)
     deleteTodoItem(i)
     deleteTodoAll(li)

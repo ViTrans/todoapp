@@ -110,7 +110,7 @@ body{
 .footer{
     margin-top: 20px;
     width: 100%;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     display: flex;
     position: relative;
@@ -133,6 +133,11 @@ body{
     background: #37d5d6;
     color: white;
 }
+.footer .pendingTasks{
+    display: block;
+    padding-left: 5px;
+}
+
 
 
 
