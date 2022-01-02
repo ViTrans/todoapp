@@ -1,7 +1,11 @@
 {
   "name": "todolist",
   "version": "1.0.0",
-  "main": "index.js",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
   "repository": "https://github.com/ViTrans/todoapp.git",
   "author": "ViTrans <tran.vi487@gmail.com>",
   "license": "MIT",

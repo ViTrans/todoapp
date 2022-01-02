@@ -1,25 +1,4 @@
 
-const inputElem = document.querySelector('.input__field input')
-const push = document.querySelector('.push')
-const todoList = document.querySelector('.todo__list')
-const clearAll = document.querySelector('.clear-all')
-const counterElem = document.querySelector('.pendingTasksNumb')
-
-// rang buoc su kien cho button push
-push.addEventListener('click',function(){
-    // hien thi totoList moi trong danh sach
-    const value = inputElem.value;
-    // validate du lieu
-    const isvalid = validateData(value)
-    if(!isvalid){
-        return;
-
-    }
-    // tao moi cac the html
-    createTodo(value)
-    countTodo()
-    clearInputValue()
-})
 function clearInputValue(){
     inputElem.value = ''
 }
@@ -107,3 +86,5 @@ function createTodo(value){
     li.appendChild(i)
     todoList.appendChild(li)
 }
+
+exports.validateData = validateData
