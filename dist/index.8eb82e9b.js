@@ -460,26 +460,46 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"iJDgK":[function(require,module,exports) {
 var _logic = require("./logic");
+var _storage = require("./storage");
 const inputElem = document.querySelector('.input__field input');
 const push = document.querySelector('.push');
-const todoList = document.querySelector('.todo__list');
-const clearAll = document.querySelector('.clear-all');
-const counterElem = document.querySelector('.pendingTasksNumb');
+function showList() {
+    const listArr = _storage.getJSONItemt('todo');
+    if (!listArr) _storage.setJSONItemt('todo', [
+        value
+    ]);
+    else {
+        listArr.push(inputElem.value);
+        _storage.setJSONItemt('todo', listArr);
+    }
+}
 // rang buoc su kien cho button push
 push.addEventListener('click', function() {
     // hien thi totoList moi trong danh sach
     const value = inputElem.value;
     // validate du lieu
     const isvalid = _logic.validateData(value);
-    console.log("isvalid", isvalid);
     if (!isvalid) return;
-// tao moi cac the html
-// createTodo(value)
-// countTodo()
-// clearInputValue()
+    // tao moi cac the html
+    _logic.createTodo(value);
+    const listArr = _storage.getJSONItemt('todo');
+    if (!listArr) _storage.setJSONItemt('todo', [
+        value
+    ]);
+    else {
+        listArr.push(inputElem.value);
+        _storage.setJSONItemt('todo', listArr);
+    }
+    _logic.countTodo();
+    _logic.clearInputValue();
 });
 
-},{"./logic":"4mGFg"}],"4mGFg":[function(require,module,exports) {
+},{"./logic":"4mGFg","./storage":"9vIlC"}],"4mGFg":[function(require,module,exports) {
+const inputElem = document.querySelector('.input__field input');
+const todoList = document.querySelector('.todo__list');
+const clearAll = document.querySelector('.clear-all');
+const counterElem = document.querySelector('.pendingTasksNumb');
+const push = document.querySelector('.push');
 function clearInputValue() {
     inputElem.value = '';
 }
@@ -557,6 +577,32 @@ function createTodo(value) {
     todoList.appendChild(li);
 }
 exports.validateData = validateData;
+exports.createTodo = createTodo;
+exports.clearInputValue = clearInputValue;
+exports.countTodo = countTodo;
+
+},{}],"9vIlC":[function(require,module,exports) {
+function setItemt(name, value) {
+    localStorage.setItem(name, value);
+}
+function getItemt(name) {
+    return localStorage.getItem(name);
+}
+function setJSONItemt(name, value) {
+    localStorage.setItem(name, JSON.stringify(value));
+}
+function getJSONItemt(name) {
+    const value = localStorage.getItem(name);
+    return JSON.parse(value);
+}
+function removeItem(name) {
+    localStorage.removeItem(name);
+}
+exports.setItem = setItemt;
+exports.getItem = getItemt;
+exports.getJSONItemt = getJSONItemt;
+exports.clearItemt = removeItem;
+exports.setJSONItemt = setJSONItemt;
 
 },{}]},["cgLB2","iJDgK"], "iJDgK", "parcelRequire78f8")
 

@@ -1,24 +1,37 @@
-import { validateData } from "./logic";
-
+import { validateData,createTodo,countTodo,clearInputValue} from "./logic";
+import { setItem,getItem,getJSONItemt,setJSONItemt } from "./storage";
 const inputElem = document.querySelector('.input__field input')
 const push = document.querySelector('.push')
-const todoList = document.querySelector('.todo__list')
-const clearAll = document.querySelector('.clear-all')
-const counterElem = document.querySelector('.pendingTasksNumb')
-
+function showList(){
+    const listArr = getJSONItemt('todo');
+    if(!listArr){
+        setJSONItemt('todo',[value])
+    }
+    else{
+        listArr.push(inputElem.value)
+        setJSONItemt('todo',listArr)
+    }
+}
 // rang buoc su kien cho button push
 push.addEventListener('click',function(){
     // hien thi totoList moi trong danh sach
     const value = inputElem.value;
     // validate du lieu
     const isvalid = validateData(value)
-    console.log("isvalid",isvalid)
     if(!isvalid){
         return;
 
     }
     // tao moi cac the html
-    // createTodo(value)
-    // countTodo()
-    // clearInputValue()
+    createTodo(value)
+    const listArr = getJSONItemt('todo');
+    if(!listArr){
+        setJSONItemt('todo',[value])
+    }
+    else{
+        listArr.push(inputElem.value)
+        setJSONItemt('todo',listArr)
+    }
+    countTodo()
+    clearInputValue()
 })

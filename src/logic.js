@@ -1,4 +1,8 @@
-
+const inputElem = document.querySelector('.input__field input')
+const todoList = document.querySelector('.todo__list')
+const clearAll = document.querySelector('.clear-all')
+const counterElem = document.querySelector('.pendingTasksNumb')
+const push = document.querySelector('.push')
 function clearInputValue(){
     inputElem.value = ''
 }
@@ -88,3 +92,6 @@ function createTodo(value){
 }
 
 exports.validateData = validateData
+exports.createTodo = createTodo
+exports.clearInputValue = clearInputValue
+exports.countTodo = countTodo
