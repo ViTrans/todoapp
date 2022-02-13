@@ -461,20 +461,10 @@ function hmrAcceptRun(bundle, id) {
 },{}],"iJDgK":[function(require,module,exports) {
 var _logic = require("./logic");
 var _storage = require("./storage");
-const inputElem = document.querySelector('.input__field input');
-const push = document.querySelector('.push');
-function showList() {
-    const listArr = _storage.getJSONItemt('todo');
-    if (!listArr) _storage.setJSONItemt('todo', [
-        value
-    ]);
-    else {
-        listArr.push(inputElem.value);
-        _storage.setJSONItemt('todo', listArr);
-    }
-}
-// rang buoc su kien cho button push
-push.addEventListener('click', function() {
+const inputElem = document.querySelector(".input__field input");
+const push = document.querySelector(".push");
+// rang buoc su kien click cho button push
+push.addEventListener("click", function() {
     // hien thi totoList moi trong danh sach
     const value = inputElem.value;
     // validate du lieu
@@ -482,34 +472,49 @@ push.addEventListener('click', function() {
     if (!isvalid) return;
     // tao moi cac the html
     _logic.createTodo(value);
-    const listArr = _storage.getJSONItemt('todo');
-    if (!listArr) _storage.setJSONItemt('todo', [
-        value
-    ]);
-    else {
-        listArr.push(inputElem.value);
-        _storage.setJSONItemt('todo', listArr);
+    function saveTodo() {
+        const listArr = _storage.getJSONItemt("todo");
+        if (!listArr) _storage.setJSONItemt("todo", [
+            value
+        ]);
+        else {
+            listArr.push(inputElem.value);
+            _storage.setJSONItemt("todo", listArr);
+        }
     }
+    saveTodo();
     _logic.countTodo();
     _logic.clearInputValue();
 });
+// hàm hiển thị danh sách todo
+function showlist() {
+    const listArr = _storage.getJSONItemt("todo");
+    for(let i = 0; i < listArr.length; i++){
+        const todo = listArr[i];
+        _logic.createTodo(todo);
+        _logic.countTodo(_storage.getJSONItemt("todo"));
+    }
+}
+showlist();
 
 },{"./logic":"4mGFg","./storage":"9vIlC"}],"4mGFg":[function(require,module,exports) {
-const inputElem = document.querySelector('.input__field input');
-const todoList = document.querySelector('.todo__list');
-const clearAll = document.querySelector('.clear-all');
-const counterElem = document.querySelector('.pendingTasksNumb');
-const push = document.querySelector('.push');
+var _storage = require("./storage");
+const inputElem = document.querySelector(".input__field input");
+const todoList = document.querySelector(".todo__list");
+const clearAll = document.querySelector(".clear-all");
+const counterElem = document.querySelector(".pendingTasksNumb");
+const push = document.querySelector(".push");
 function clearInputValue() {
-    inputElem.value = '';
+    inputElem.value = "";
 }
+// hàm đếm số itemt trong danh sách todo
 function countTodo() {
-    const allItemts = document.querySelectorAll('.content');
+    const allItemts = document.querySelectorAll(".content");
     const counter = allItemts.length;
     counterElem.textContent = counter;
 }
 // khi người dùng nhập dữ liệu ấn Enter thì dữ liệu sẽ được hiển thị
-inputElem.addEventListener('keyup', function(event) {
+inputElem.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         push.click();
@@ -517,55 +522,57 @@ inputElem.addEventListener('keyup', function(event) {
 });
 function validateData(value) {
     let valid = false;
-    if (value.trim() !== '') valid = true;
+    if (value.trim() !== "") valid = true;
     return valid;
 }
-// hàm thay đổi trạng thái văn bản khi ấn vào nút input chẹckbox
+// hàm thay đổi trạng thái văn bản khi ấn vào nút input checkbox
 function changeStastus(input, p) {
     // them su kien gach
-    input.addEventListener('change', function(event) {
+    input.addEventListener("change", function(event) {
         const checked = event.target.checked;
-        if (checked) p.style.textDecoration = 'line-through';
-        else p.style.textDecoration = '';
+        if (checked) p.style.textDecoration = "line-through";
+        else p.style.textDecoration = "";
     });
 }
 // hàm xóa tất cả các danh sách todo
 function deleteTodoAll(li) {
-    clearAll.addEventListener('click', function() {
-        li.remove();
+    clearAll.addEventListener("click", function() {
+        localStorage.removeItem("todo", li.remove());
         countTodo();
     });
 }
 // Hàm xóa từng item trong danh sách todo
 function deleteTodoItem(i) {
-    i.addEventListener('click', function() {
+    i.addEventListener("click", function() {
         const itemt = i.parentElement;
-        itemt.remove();
+        const listArr = _storage.getJSONItemt("todo");
+        listArr.splice(itemt.remove(), 1);
+        _storage.setJSONItemt("todo", listArr);
         countTodo();
     });
 }
 // hàm thay đổi trạng thái khi click vào text
 function changeText(li, input, p) {
-    li.addEventListener('click', function(event) {
+    li.addEventListener("click", function(event) {
         if (!event.ctrlKey) return;
         if (input.checked == false) {
             input.checked = true;
-            p.style.textDecoration = 'line-through';
+            p.style.textDecoration = "line-through";
         } else {
             input.checked = false;
-            p.style.textDecoration = '';
+            p.style.textDecoration = "";
         }
     });
 }
 function createTodo(value) {
-    const li = document.createElement('li');
-    const input = document.createElement('input');
-    const p = document.createElement('p');
-    const i = document.createElement('i');
-    li.className = 'content';
-    input.type = 'checkbox';
-    input.className = 'input-checkbox';
-    i.className = 'bx bx-trash trash';
+    const li = document.createElement("li");
+    const input = document.createElement("input");
+    const p = document.createElement("p");
+    const i = document.createElement("i");
+    li.className = "content";
+    input.type = "checkbox";
+    input.className = "input-checkbox";
+    i.className = "bx bx-trash trash";
     p.innerHTML = value;
     changeText(li, input, p);
     changeStastus(input, p);
@@ -580,8 +587,10 @@ exports.validateData = validateData;
 exports.createTodo = createTodo;
 exports.clearInputValue = clearInputValue;
 exports.countTodo = countTodo;
+exports.deleteTodoAll = deleteTodoAll;
+exports.deleteTodoItem = deleteTodoItem;
 
-},{}],"9vIlC":[function(require,module,exports) {
+},{"./storage":"9vIlC"}],"9vIlC":[function(require,module,exports) {
 function setItemt(name, value) {
     localStorage.setItem(name, value);
 }
@@ -603,6 +612,7 @@ exports.getItem = getItemt;
 exports.getJSONItemt = getJSONItemt;
 exports.clearItemt = removeItem;
 exports.setJSONItemt = setJSONItemt;
+exports.removeItem = removeItem;
 
 },{}]},["cgLB2","iJDgK"], "iJDgK", "parcelRequire78f8")
 

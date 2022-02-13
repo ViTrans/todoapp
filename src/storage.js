@@ -20,3 +20,4 @@ exports.getItem = getItemt
 exports.getJSONItemt = getJSONItemt
 exports.clearItemt = removeItem
 exports.setJSONItemt = setJSONItemt
+exports.removeItem = removeItem
