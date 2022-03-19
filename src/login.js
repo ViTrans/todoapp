@@ -1,25 +1,19 @@
-import { getItem, setItem } from "./storage";
 const loginBtn = document.querySelector(".login-btn");
-const userNameInp = document.querySelector(
+const inputUserName = document.querySelector(
   '.input-field input[name ="username"]'
 );
-const passwordInp = document.querySelector(
+const inputPass = document.querySelector(
   '.input-field input[name ="password"]'
 );
-
-loginBtn.addEventListener("click", () => {
-  const username = userNameInp.value;
-  const password = passwordInp.value;
-  const users = JSON.parse(getItem("users") || "[]");
-
-  for (let i = 0; i < users.length; i++) {
-    const user = users[i];
-
-    if (username === user.username && password === user.password) {
-      setItem("authenticated", "true");
-      console.log("success");
-      window.location.reload();
-      break;
-    }
+const user = "laptrinhweb";
+const password = "123456";
+loginBtn.addEventListener("click", function () {
+  const userName = inputUserName.value;
+  const pass = inputPass.value;
+  if (userName === user && pass === password) {
+    alert("dang nhap thanh cong");
+    window.location.href = "index.html";
+  } else {
+    alert("dang nhap that bai");
   }
 });

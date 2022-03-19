@@ -117,6 +117,10 @@ body {
   text-overflow: ellipsis;
 }
 
+.content p.checked {
+  text-decoration: line-through;
+}
+
 .content i {
   cursor: pointer;
 }
